@@ -8,9 +8,11 @@ import time
 neuropy = mp.NeuroPy(port='COM3')
 jump_name = 'jump'
 run_fire_name = 'run_fire'
-file_name = f'./results_{time.time_ns()}.csv'
+space_name = 'space_is_pressed'
+results_extra_prefix = '_v2'
+file_name = f'./results{results_extra_prefix}_{time.time_ns()}.csv'
 time_name = 'timestamp_ns'
-interval = 0.1
+interval = 0.05
 
 
 class Attrdict(dict):
@@ -23,8 +25,9 @@ class Attrdict(dict):
 
 
 results = Attrdict()
-results[jump_name] = 0
-results[run_fire_name] = 0
+# results[jump_name] = 0
+# results[run_fire_name] = 0
+results[space_name] = 0
 
 
 def print_object_methods(o):
@@ -50,7 +53,8 @@ def on_press(key):
         elif key.char is 'z':
             results[run_fire_name] = 1
     except AttributeError:
-        pass
+        if key == keyboard.Key.space:
+            results[space_name] = 1
 
 
 def on_release(key):
@@ -60,7 +64,8 @@ def on_release(key):
         elif key.char is 'z':
             results[run_fire_name] = 0
     except AttributeError:
-        pass
+        if key == keyboard.Key.space:
+            results[space_name] = 0
 
 
 try:
