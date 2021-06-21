@@ -3,25 +3,12 @@ from NeuroPy import NeuroPy as mp
 from time import sleep
 from pynput import keyboard
 import time
+from attributes_holder import *
 
 
 neuropy = mp.NeuroPy(port='COM3')
-jump_name = 'jump'
-run_fire_name = 'run_fire'
-space_name = 'space_is_pressed'
-results_extra_prefix = '_v2'
+results_extra_prefix = '_tmp'
 file_name = f'./results{results_extra_prefix}_{time.time_ns()}.csv'
-time_name = 'timestamp_ns'
-interval = 0.05
-
-
-class Attrdict(dict):
-    def __init__(self, *args, **kwargs):
-        dict.__init__(self, *args, **kwargs)
-        self.__dict__ = self
-
-    def __str__(self):
-        return str(dict(self))
 
 
 results = Attrdict()
